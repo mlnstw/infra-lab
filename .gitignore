@@ -1,0 +1,47 @@
+# ── Terraform ──────────────────────────────
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+!.terraform.lock.hcl  # lock-файл версии провайдеров
+
+# ── Terraform vars with real values ────────
+*.tfvars
+*.auto.tfvars
+!*.tfvars.example
+!*.auto.tfvars.example
+
+# ── Secrets & credentials ──────────────────
+keys/
+keys.txt
+*.pem
+*.key
+*.p12
+kubeconfig*
+**/kubeconfig*
+**/*token*.json
+**/*token*.yaml
+**/sa-token.yaml
+**/ci-cd-*.json
+**/ci-cd-*-key.json
+**/access_key.txt
+env
+.env
+.env.*
+
+# ── IDE / OS ───────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+
+test-deployment/

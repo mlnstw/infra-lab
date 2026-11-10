@@ -1,0 +1,17 @@
+# Docker
+*.log
+*.pid
+*.pid.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+.DS_Store
+Thumbs.db
+
+# Kubernetes secrets (если будут)
+*.kubeconfig

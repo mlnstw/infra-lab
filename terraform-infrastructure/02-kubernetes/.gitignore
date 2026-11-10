@@ -1,0 +1,17 @@
+# Local .terraform directories and files
+**/.terraform/*
+.terraform*
+
+backend.tf
+
+!.terraformrc
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# own secret vars store.
+!personal.auto.tfvars
+my.auto.tfvars
+
+##4Check

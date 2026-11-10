@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Demo App - mlnstw DevOps</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 800px;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #f5f5f5;
+		}
+
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			color: #333;
+		}
+
+		.status {
+			color: green;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>🚀 Test Application</h1>
+		<p>This is a demo application for mlnstw DevOps .</p>
+		<p>Status: <span class="status">✅ Running successfully</span></p>
+		<p>Server: <strong>nginx</strong></p>
+		<p>Environment: <strong>Kubernetes</strong></p>
+		<p>Timestamp: <span id="timestamp"></span></p>
+		<script>
+			document.getElementById('timestamp').textContent = new Date().toISOString();
+		</script>
+	</div>
+</body>
+
+</html>
