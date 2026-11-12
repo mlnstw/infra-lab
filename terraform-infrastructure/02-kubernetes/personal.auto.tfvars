@@ -44,9 +44,9 @@ conf_subnet = {
     v4_cidr_blocks = ["192.168.20.0/24"]
     is_private     = true
   }
-  "private-b" = {
-    name           = "private-b"
-    zone           = "ru-central1-b"
+  "private-e" = {
+    name           = "private-e"
+    zone           = "ru-central1-e"
     v4_cidr_blocks = ["192.168.30.0/24"]
     is_private     = true
   }
@@ -64,7 +64,7 @@ conf_subnet = {
   }
   # "k8s-masters-b" = {
   #   name           = "k8s-masters-b"
-  #   zone           = "ru-central1-b"
+  #   zone           = "ru-central1-e"
   #   v4_cidr_blocks = ["192.168.60.0/24"]
   #   is_private     = true
   # }

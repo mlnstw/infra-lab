@@ -13,14 +13,6 @@ resource "yandex_kubernetes_cluster" "mlnstw-k8s" {
 
     security_group_ids = [yandex_vpc_security_group.k8s_master_sg.id]
 
-    master_logging {
-      enabled                    = true
-      log_group_id               = data.yandex_logging_group.k8s_logs.id
-      kube_apiserver_enabled     = true
-      cluster_autoscaler_enabled = true
-      events_enabled             = true
-      audit_enabled              = true
-    }
   }
 
   service_account_id      = yandex_iam_service_account.k8s-cluster-sa.id
@@ -58,7 +50,7 @@ resource "yandex_kubernetes_node_group" "k8s-node-group" {
     network_interface {
       subnet_ids = [
         yandex_vpc_subnet.mlnstw-subnet["private-a"].id,
-        yandex_vpc_subnet.mlnstw-subnet["private-b"].id,
+        yandex_vpc_subnet.mlnstw-subnet["private-e"].id,
         yandex_vpc_subnet.mlnstw-subnet["private-d"].id
       ]
 
@@ -77,7 +69,7 @@ resource "yandex_kubernetes_node_group" "k8s-node-group" {
 
   scale_policy {
     fixed_scale {
-      size = 3
+      size = 1
     }
   }
 
@@ -86,7 +78,7 @@ resource "yandex_kubernetes_node_group" "k8s-node-group" {
       zone = "ru-central1-a"
     }
     location {
-      zone = "ru-central1-b"
+      zone = "ru-central1-e"
     }
     location {
       zone = "ru-central1-d"
@@ -133,10 +125,10 @@ resource "local_file" "kubeconfig" {
           - create-token
   EOT
 
-  filename = pathexpand("~/.kube/config")
+  filename = "../keys/kubeconfig"
 
   provisioner "local-exec" {
-    command = "chmod 600 ${pathexpand("~/.kube/config")}"
+    command = "chmod 600 ../keys/kubeconfig"
   }
 
   depends_on = [yandex_kubernetes_cluster.mlnstw-k8s]

@@ -20,7 +20,6 @@ terraform.rc
 !*.auto.tfvars.example
 
 # ── Secrets & credentials ──────────────────
-keys/
 keys.txt
 *.pem
 *.key

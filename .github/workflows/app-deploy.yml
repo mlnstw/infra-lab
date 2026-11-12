@@ -52,33 +52,47 @@ jobs:
             --password-stdin \
             cr.yandex
 
-      - name: Build Docker image (version tag)
+      - name: Build Docker image
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} ./app
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} ./demo-app/app
 
-      - name: Push Docker image (version tag)
+      - name: Push Docker image
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}
-
-      - name: Tag as latest
-        run: |
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} \
+                     ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
+      # ─── KUBECTL ЧЕРЕЗ yc get-credentials (без KUBE_CONFIG) ───
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
         with:
           version: "latest"
 
-      - name: Configure kubeconfig
+      - name: Configure kubeconfig via YC CLI
         run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+          yc managed-kubernetes cluster get-credentials \
+            --name mlnstw-k8s \
+            --external \
+            --force
+          kubectl get nodes
 
-      - name: Deploy to Kubernetes
+      # ─── ДЕПЛОЙ ───
+      - name: Deploy manifests
+        run: |
+          # Подставляем реальный registry в манифест
+          sed -i "s|\${REGISTRY}|${{ env.REGISTRY }}|g" demo-app/k8s/deployment.yaml
+          kubectl apply -f demo-app/k8s/deployment.yaml
+          kubectl apply -f demo-app/k8s/service.yaml
+          kubectl apply -f demo-app/k8s/service-lb.yaml
+          kubectl apply -f demo-app/k8s/grafana-lb.yaml
+
+      - name: Update image to version
         run: |
           kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} \
             nginx=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} \
             -n ${{ env.NAMESPACE }}
-          kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }}
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }} --timeout=300s

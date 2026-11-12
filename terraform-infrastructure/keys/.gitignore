@@ -1,0 +1,10 @@
+# Игнорируем все файлы с ключами
+*.json
+*.key
+*.pem
+*.crt
+*.pub
+*.secret
+*.token
+
+!.gitignore

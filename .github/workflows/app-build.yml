@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "app/**"
+      - "demo-app/app/**"
       - "k8s/**"
       - ".github/workflows/build-push-main.yml"
     tags-ignore:
@@ -54,7 +54,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./app
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./demo-app/app
 
       - name: Push Docker image
         run: |

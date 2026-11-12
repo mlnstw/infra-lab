@@ -20,8 +20,5 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-keys/
 **/backend.tf
 *.auto.tfvars
-
-01_sa_backend/
