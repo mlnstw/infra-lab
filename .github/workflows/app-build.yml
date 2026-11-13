@@ -1,13 +1,13 @@
-name: Build and Push (main branch)
+name: Build and Push (master branch)
 
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "demo-app/app/**"
       - "k8s/**"
-      - ".github/workflows/build-push-main.yml"
+      - ".github/workflows/app-build.yml"
     tags-ignore:
       - "**"
 
