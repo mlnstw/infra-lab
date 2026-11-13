@@ -107,6 +107,7 @@ resource "yandex_iam_service_account" "ci-cd-sa" {
 resource "yandex_resourcemanager_folder_iam_member" "ci-cd-roles" {
   for_each = toset([
     "container-registry.images.pusher",
+    "k8s.viewer"
   ])
 
   folder_id = var.folder_id
