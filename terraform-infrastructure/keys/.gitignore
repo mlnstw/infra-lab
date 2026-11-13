@@ -6,5 +6,6 @@
 *.pub
 *.secret
 *.token
+*key.txt
 
 !.gitignore

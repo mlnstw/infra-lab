@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nginx-test-app
+  namespace: default
+  labels:
+    release: prometheus     # label, который kube-prometheus ожидает
+spec:
+  selector:
+    matchLabels:
+      app: nginx-test-app
+  endpoints:
+    - port: metrics
+      interval: 30s

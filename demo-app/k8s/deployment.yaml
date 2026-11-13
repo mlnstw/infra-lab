@@ -16,6 +16,12 @@ spec:
         app: nginx-test-app
     spec:
       containers:
+      - name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:1.1
+        args: ["-nginx.scrape-uri=http://127.0.0.1:8080/stub_status"]
+        ports:
+          - name: metrics
+            containerPort: 9113
       - name: nginx
         image: {{ REGISTRY }}/mlnstw-test-app:latest
         ports:

@@ -21,10 +21,10 @@ gh secret set YC_TERRAFORM_KEY_JSON     < "$KEYS/terraform-key.json"
 gh secret set AWS_ACCESS_KEY_ID         < "$KEYS/access_key.txt"
 gh secret set AWS_SECRET_ACCESS_KEY     < "$KEYS/secret_key.txt"
 
-REGISTRY=$(cd "$REPO_ROOT/terraform-infrastructure/01_sa_backend" && terraform output -raw folder_id)
+FOLDER_ID=$(cd "$REPO_ROOT/terraform-infrastructure/01_sa_backend" && terraform output -raw folder_id)
 gh secret set YC_FOLDER_ID         --body "$FOLDER_ID"
 
-REGISTRY=$(cd "$REPO_ROOT/terraform-infrastructure/01_sa_backend" && terraform output -raw cloud_id)
+CLOUD_ID=$(cd "$REPO_ROOT/terraform-infrastructure/01_sa_backend" && terraform output -raw cloud_id)
 gh secret set YC_CLOUD_ID          --body "$CLOUD_ID"
 
 REGISTRY=$(cd "$REPO_ROOT/terraform-infrastructure/01_sa_backend" && terraform output -raw container_registry_url)
