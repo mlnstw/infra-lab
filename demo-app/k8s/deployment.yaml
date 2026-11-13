@@ -23,7 +23,7 @@ spec:
           - name: metrics
             containerPort: 9113
       - name: nginx
-        image: ${REGISTRY}/mlnstw-test-app:latest
+        image: mlnstw-test-app:latest
         ports:
         - containerPort: 80
         resources:
