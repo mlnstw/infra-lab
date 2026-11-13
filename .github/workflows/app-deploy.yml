@@ -75,7 +75,7 @@ jobs:
             --name mlnstw-k8s \
             --external \
             --force
-          kubectl get nodes
+          kubectl auth can-i create deployment -n default
 
       # ─── ДЕПЛОЙ ───
       - name: Deploy manifests
