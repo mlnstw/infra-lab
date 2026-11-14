@@ -83,15 +83,22 @@ jobs:
         with:
           kustomize-version: "5.4.3"
 
+      - name: Install kubeconform
+        run: |
+          curl -sSL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+            | tar xz -C /usr/local/bin
+          kubeconform -v
+
       - name: Validate K8s manifests to kubeconform
-        uses: yannh/kubeconform-action@v0.6.7
-        with:
-          files: |
-            demo-app/k8s/deployment.yaml
-            demo-app/k8s/service.yaml
+        run: |
+          kubeconform \
+            -strict \
+            -ignore-missing-schemas \
+            -summary \
+            -kubernetes-version 1.32.0 \
+            demo-app/k8s/deployment.yaml \
+            demo-app/k8s/service.yaml \
             demo-app/k8s/service-lb.yaml
-          strict: true
-          ignore_missing_schemas: true
 
       - name: Deploy
         run: |
