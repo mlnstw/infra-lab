@@ -1,5 +1,5 @@
 resource "yandex_storage_bucket" "tf-state" {
-  bucket = var.bucket_name
+  bucket        = var.bucket_name
   force_destroy = true
 
   access_key = yandex_iam_service_account_static_access_key.s3-key.access_key
