@@ -6,7 +6,6 @@ on:
       - master
     paths:
       - "demo-app/app/**"
-      - "k8s/**"
       - ".github/workflows/app-build.yml"
     tags-ignore:
       - "**"
