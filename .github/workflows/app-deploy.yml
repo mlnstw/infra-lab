@@ -83,6 +83,16 @@ jobs:
         with:
           kustomize-version: "5.4.3"
 
+      - name: Validate K8s manifests to kubeconform
+        uses: yannh/kubeconform-action@v0.6.7
+        with:
+          files: |
+            demo-app/k8s/deployment.yaml
+            demo-app/k8s/service.yaml
+            demo-app/k8s/service-lb.yaml
+          strict: true
+          ignore_missing_schemas: true
+
       - name: Deploy
         run: |
           cd demo-app/k8s
