@@ -64,7 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run TFLint
-        run: tflint --format compact --recursive
+        run: tflint --format compact --recursive --minimum-failure-severity=error
 
       - name: Terraform Plan (PR)
         if: github.event_name == 'pull_request'
