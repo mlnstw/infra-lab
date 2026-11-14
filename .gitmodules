@@ -1,0 +1,3 @@
+[submodule "terraform-infrastructure/03-monitoring/kube-prometheus"]
+	path = terraform-infrastructure/03-monitoring/kube-prometheus
+	url = https://github.com/prometheus-operator/kube-prometheus.git
