@@ -1,5 +1,3 @@
-folder_id = "b1gaesevufm4cncrlfb2"
-
 # conf_vm = {
 #   "nat-instance" = {
 #     name          = "nat-instance"
