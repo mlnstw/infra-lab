@@ -53,6 +53,19 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: "latest"
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run TFLint
+        run: tflint --format compact --recursive
+
       - name: Terraform Plan (PR)
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
